@@ -13,7 +13,11 @@ module CarrierWave
       # Reduces the quality of the image to the percentage given
       def quality(percentage)
         manipulate! do |img|
-          img.write(current_path){ self.quality = percentage }
+          # Quality not available for Rmagick4j,
+          # or I don't know how to make it work
+          unless defined?(Java::Rmagick4j)
+            img.write(current_path){ self.quality = percentage }
+          end
           img = yield(img) if block_given?
           img
         end
