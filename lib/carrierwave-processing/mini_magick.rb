@@ -18,6 +18,16 @@ module CarrierWave
           img
         end
       end
+
+      # Auto Orients images
+      # may not work if using stip, since orientation is in the EXIF data
+      def rotate
+        manipulate! do |img|
+          img = img.auto_orient
+          img = yield(img) if block_given?
+          img
+        end
+      end
     end
   end
 end
