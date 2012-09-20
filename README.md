@@ -18,7 +18,7 @@ Or install it yourself as:
 
 ## Usage
 
-This gem add several useful methods to CarrierWave processing RMagick and MiniMagick modules: `quality` and `strip`.
+This gem add several useful methods to CarrierWave processing RMagick and MiniMagick modules: `quality`, `strip` and `rotate`.
 To use those, you should include specified module (RMagick or MiniMagick) into your uploader and use processors:
 
     class AvatarUploader < CarrierWave::Uploader::Base
@@ -29,6 +29,7 @@ To use those, you should include specified module (RMagick or MiniMagick) into y
       process :resize_to_fill => [200, 200]
       process :quality => 90 # Set JPEG/MIFF/PNG compression level (0-100)
       process :convert => 'png'
+      process :rotate # Auto rotate image based on EXIF orientation
 
       def filename
         super.chomp(File.extname(super)) + '.png'
