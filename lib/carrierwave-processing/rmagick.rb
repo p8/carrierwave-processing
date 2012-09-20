@@ -28,6 +28,16 @@ module CarrierWave
           img
         end
       end
+
+      # Adds a watermark at the bottom center
+      def watermark(source_watermark)
+        manipulate! do |img|
+          logo = Magick::Image.read(source_watermark).first
+          img = img.composite(logo, Magick::SouthGravity, Magick::OverCompositeOp)
+          img = yield(img) if block_given?
+          img
+        end
+      end
     end
   end
 end

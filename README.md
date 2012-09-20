@@ -18,7 +18,8 @@ Or install it yourself as:
 
 ## Usage
 
-This gem add several useful methods to CarrierWave processing RMagick and MiniMagick modules: `quality`, `strip` and `rotate`.
+This gem add several useful methods to CarrierWave processing RMagick and MiniMagick modules: `quality`, `strip`, `rotate` and `watermark`.
+
 To use those, you should include specified module (RMagick or MiniMagick) into your uploader and use processors:
 
     class AvatarUploader < CarrierWave::Uploader::Base
@@ -30,6 +31,7 @@ To use those, you should include specified module (RMagick or MiniMagick) into y
       process :quality => 90 # Set JPEG/MIFF/PNG compression level (0-100)
       process :convert => 'png'
       process :rotate # Auto rotate image based on EXIF orientation
+      process :watermark => "#{Rails.root}/public/watermark.png"
 
       def filename
         super.chomp(File.extname(super)) + '.png'
