@@ -33,7 +33,7 @@ module CarrierWave
       def watermark(source_watermark)
         manipulate! do |img|
           watermark = ::MiniMagick::Image.open(source_watermark)
-          watermark.resize img[:dimensions].join 'x'
+          watermark.resize img[:dimensions].join('x')
           img = img.composite(watermark, 'png') do |c|
             c.gravity "center"
           end
