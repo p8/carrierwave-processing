@@ -15,5 +15,5 @@ Gem::Specification.new do |gem|
   gem.require_paths = ["lib"]
   gem.version       = CarrierWave::Processing::VERSION
 
-  gem.add_dependency 'carrierwave', ['>= 2.0']
+  gem.add_dependency 'carrierwave', ['>= 1.3.1']
 end
