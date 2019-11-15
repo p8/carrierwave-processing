@@ -32,7 +32,11 @@ module CarrierWave
       # Adds a watermark at the center
       def watermark(source_watermark)
         minimagick! do |img|
-          watermark = ::MiniMagick::Image.new(source_watermark)
+          if defined?(ImageProcessing)
+            watermark = ::MiniMagick::Image.new(source_watermark)
+          else
+            watermark = ::MiniMagick::Image.open(source_watermark)
+          end
           watermark.resize img[:dimensions].join('x')
           img = img.composite(watermark, 'png') do |c|
             c.gravity "center"
@@ -40,6 +44,13 @@ module CarrierWave
           img
         end
       end
+
+      unless defined?(ImageProcessing)
+        def minimagick!(&block)
+          manipulate!(&block)
+        end
+      end
+
     end
   end
 end
